@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Stage 1: Install deps from package.json
+if command -v npm >> /dev/null; then
+  echo "Stage 1: Installing npm dependencies..."
+  npm install
+else
+  echo "npm is not installed. Please install Node.js and npm to proceed."
+  exit 1
+fi
+echo
+
+# Stage 2: Setup multiarch builds
+echo "Stage 2: Setting up multiarch builds..."
+docker run --privileged --rm tonistiigi/binfmt --install all
+echo
+
+# Stage 3: Add devcontainers/image repo for subtree setup
+echo "Stage 3: Adding github:devcontainers/image repo as remote for subtree setup..."
+git remote add -f dc-images https://github.com/devcontainers/images.git || git remote set-url dc-images https://github.com/devcontainers/images.git
+git fetch dc-images main

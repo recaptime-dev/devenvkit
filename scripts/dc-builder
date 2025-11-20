@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+GIT_ROOT=$(git rev-parse --show-toplevel)
+GIT_COMMIT_HASH=$(git rev-parse HEAD)
+GIT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/[^a-zA-Z0-9]/-/g') # slugified
+BUILD_TIMESTAMP=$(date -u +"%Y%m%dT%H%M%S")
+DEVCONTAINER_CLI_PATH="${GIT_ROOT}/node_modules/.bin/devcontainer"
+
+if [ ! -f "$DEVCONTAINER_CLI_PATH" ]; then
+  echo "devcontainer CLI not found. Please run 'npm install' to install dependencies."
+  exit 1
+fi
+
+DEVCONTAINER_WORKSPACE_DIR="${GIT_ROOT}/src/$1"
+DEVCONTAINER_TARGET_PLATFORMS="linux/amd64,linux/arm64"
+DEVCONTAINER_IMAGE_NAME="ghcr.io/recaptime-dev/devenvkit/$2"
+DEVCONTAINER_BUILD_COMMAND="$DEVCONTAINER_CLI_PATH build --workspace-folder ${DEVCONTAINER_WORKSPACE_DIR} --image-name ${DEVCONTAINER_IMAGE_NAME}:commit-${GIT_COMMIT_HASH} --image-name ${DEVCONTAINER_IMAGE_NAME}:branch-${GIT_BRANCH_NAME} --image-name ${DEVCONTAINER_IMAGE_NAME}:timestamp-${BUILD_TIMESTAMP} --target-platforms ${DEVCONTAINER_TARGET_PLATFORMS}"
+
+if [[ $FF_DEVCONTAINER_SKIP_PUSH != "true" && $FF_DEVCONTAINER_SKIP_PUSH != "1" ]]; then
+  DEVCONTAINER_BUILD_COMMAND+=" --push"
+else
+  echo "info: Skipping image push due to FF_DEVCONTAINER_SKIP_PUSH being set"
+fi
+
+echo "Building ${DEVCONTAINER_IMAGE_NAME} for platforms: ${DEVCONTAINER_TARGET_PLATFORMS}"
+echo $DEVCONTAINER_BUILD_COMMAND
