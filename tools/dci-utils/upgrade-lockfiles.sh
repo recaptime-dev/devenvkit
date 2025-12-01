@@ -2,7 +2,7 @@
 
 # Pass image name to upgrade only a single image, else it upgrades all the images
 IMAGE_NAME=$1
-workspaceFolder="/workspaces/images/src"
+workspaceFolder="/workspaces/devenvkit/src"
 
 if [ ! -z "$IMAGE_NAME" ]; then
   echo "-----------------------------------------------"
@@ -12,7 +12,7 @@ if [ ! -z "$IMAGE_NAME" ]; then
   exit 0
 fi
 
-for dir in /workspaces/images/src/*/
+for dir in /workspaces/devenvkit/src/*/
 do
   cd "${dir}"
   image=$(basename $dir)

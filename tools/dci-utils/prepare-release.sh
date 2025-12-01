@@ -9,7 +9,7 @@
 
 
 SCRIPT_SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-SRC_DIR=$(readlink -m $SCRIPT_SOURCE_DIR/../src)
+SRC_DIR=$(readlink -m $SCRIPT_SOURCE_DIR/../../src)
 MANIFEST_FILE="manifest.json"
 COMMIT_HASH=$1
 
