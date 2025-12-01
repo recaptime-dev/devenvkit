@@ -3,7 +3,9 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 GIT_COMMIT_HASH=$(git rev-parse HEAD)
 GIT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/[^a-zA-Z0-9]/-/g') # slugified
 BUILD_TIMESTAMP=$(date -u +"%Y%m%dT%H%M%S")
-DEVCONTAINER_CLI_PATH="${GIT_ROOT}/node_modules/.bin/devcontainer"
+_DEVCONTAINER_CLI_PATH_NPM="${GIT_ROOT}/node_modules/.bin/devcontainer"
+_DEVCONTAINERS_CLI_PATH="$(command -v devcontainer)"
+DEVCONTAINER_CLI_PATH="${_DEVCONTAINERS_CLI_PATH:$_DEVCONTAINER_CLI_PATH_NPM}"
 
 if [ ! -f "$DEVCONTAINER_CLI_PATH" ]; then
   echo "devcontainer CLI not found. Please run 'npm install' to install dependencies."
