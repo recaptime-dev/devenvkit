@@ -13,8 +13,8 @@
             "version": "latest"
         },
         "ghcr.io/devcontainers/features/node:1": {
-            "version": "22",
-            "additionalVersions": "20"
+            "version": "24",
+            "additionalVersions": "22"
         },
         "./local-features/nvs": "latest",
         "ghcr.io/devcontainers/features/php:1": {
@@ -45,9 +45,6 @@
         "ghcr.io/devcontainers/features/github-cli:1": {
             "version": "latest"
         },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {
-            "version": "latest"
-        },
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
             "version": "latest"
         },
@@ -56,14 +53,41 @@
         },
         "./local-features/jekyll": "latest",
         "ghcr.io/devcontainers/features/oryx:1": "latest",
-        "./local-features/setup-user": "latest"
+        "./local-features/setup-user": "latest",
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"enableNonRootDocker": "true",
+			"azureDnsAutoDetection": true,
+			"installDockerBuildx": true,
+			"installDockerComposeSwitch": true,
+			"dockerDashComposeVersion": "v2"
+		},
+		"ghcr.io/flexwie/devcontainer-features/op:1": {},
+		"ghcr.io/devcontainers-extra/features/age:1": {},
+		"ghcr.io/devcontainers-extra/features/age-keygen:1": {},
+		"ghcr.io/devcontainers-extra/features/uv:1": {},
+        "ghcr.io/devcontainers-community/features/deno:1": {},
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.14.0",
+            "additionalVersions": "3.13.9",
+            "installJupyterlab": "true",
+            "configureJupyterlabAllowOrigin": "*",
+            "useOryxIfAvailable": "false"
+        },
+        "ghcr.io/devcontainers-extra/features/tailscale:1": {}
     },
     "overrideFeatureInstallOrder": [
         "ghcr.io/devcontainers/features/common-utils",
         "ghcr.io/devcontainers/features/git",
+        "ghcr.io/flexwie/devcontainer-features/op",
+        "ghcr.io/devcontainers-extra/features/age",
+        "ghcr.io/devcontainers-extra/features/age-keygen",
         "ghcr.io/devcontainers/features/hugo",
         "ghcr.io/devcontainers/features/node",
         "./local-features/nvs",
+        "ghcr.io/devcontainers-community/features/deno",
+        "ghcr.io/devcontainers/features/python",
+        "./local-features/patch-python",
         "ghcr.io/devcontainers/features/php",
         "ghcr.io/devcontainers/features/ruby",
         "ghcr.io/devcontainers/features/java",
@@ -72,6 +96,7 @@
         "ghcr.io/devcontainers/features/github-cli",
         "ghcr.io/devcontainers/features/docker-in-docker",
         "ghcr.io/devcontainers/features/kubectl-helm-minikube",
+        "ghcr.io/devcontainers-extra/features/tailscale",
         "ghcr.io/devcontainers/features/go",
         "ghcr.io/devcontainers/features/oryx",
         "./local-features/setup-user"

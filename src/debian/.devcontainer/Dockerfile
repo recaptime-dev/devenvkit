@@ -6,17 +6,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Remove imagemagick due to https://security-tracker.debian.org/tracker/CVE-2019-10131
     && apt-get purge -y imagemagick imagemagick-6-common
 
-RUN python3 -m pip install --upgrade \
-    setuptools==78.1.1 \
-    gitpython==3.1.41
-
-RUN curl -fsSL https://raw.githubusercontent.com/devcontainers/images/refs/heads/main/src/python/.devcontainer/scripts/install-subversion.sh \
+RUN export DEBIAN_FRONTEND=noninteractive && curl -fsSL https://raw.githubusercontent.com/devcontainers/images/refs/heads/main/src/python/.devcontainer/scripts/install-subversion.sh \
     | bash
 
-# Install uv cli tool and Python 3.14
-ARG PYTHON_VERSION=3.14
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && uv python install 3.14
-
-# Get Tailscale installed
-RUN curl -fsSL https://tailscale.com/install.sh | bash
+# Get Doppler and dotenvx installed
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https ca-certificates curl gnupg \
+    && curl -sLf --retry 3 --tlsv1.2 --proto "=https" 'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key' | gpg --dearmor -o /usr/share/keyrings/doppler-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/doppler-archive-keyring.gpg] https://packages.doppler.com/public/cli/deb/debian any-version main" | tee /etc/apt/sources.list.d/doppler-cli.list \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install doppler
+RUN curl -sfS https://dotenvx.sh | sh
