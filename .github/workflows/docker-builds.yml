@@ -10,7 +10,8 @@ jobs:
     strategy:
       matrix:
         image:
-          - debian
+          - src: debian
+            name: base
     permissions:
       contents: read
       packages: write
@@ -37,6 +38,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and push image
-      run: ./scripts/dc-builder ${{ matrix.image }}
+      run: ./scripts/dc-builder ${{ matrix.image.src }} ${{ matrix.image.name }}
       env:
         FF_DEVCONTAINER_SKIP_PUSH: ${{ github.event_name == 'pull_request' }}
