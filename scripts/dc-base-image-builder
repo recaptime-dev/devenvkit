@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+GIT_ROOT="$(git rev-parse --show-toplevel)"
+SOURCE_DIRECTORY="${GIT_ROOT}/src/$1"
+
+echo-and-exec() {
+  echo "+ $*"
+  exec "$@"
+}
+
+if [[ $1 == "" ]]; then
+  echo "Usage: $0 [image-source-directory-name]"
+  exit 1
+fi
+
+echo-and-exec docker build -f "$SOURCE_DIRECTORY/.devcontainer/Dockerfile" \
+  -t "ghcr.io/recaptime-dev/devenvkit/base-image-builds/$1:localdev" \
+  "$SOURCE_DIRECTORY"

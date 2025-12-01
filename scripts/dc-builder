@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+if [[ $DEBUG != "" ]]; then
+  set -x
+fi
+
+exec-or-echo() {
+  if [[ $FF_DRY_RUN != "" ]]; then
+    echo "+ $*"
+    return
+  fi
+  exec "$@"
+}
+
 GIT_ROOT=$(git rev-parse --show-toplevel)
 GIT_COMMIT_HASH=$(git rev-parse HEAD)
 GIT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/[^a-zA-Z0-9]/-/g') # slugified
@@ -24,4 +36,4 @@ else
 fi
 
 echo "Building ${DEVCONTAINER_IMAGE_NAME} for platforms: ${DEVCONTAINER_TARGET_PLATFORMS}"
-exec $DEVCONTAINER_BUILD_COMMAND
+exec-or-echo $DEVCONTAINER_BUILD_COMMAND
