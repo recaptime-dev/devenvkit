@@ -3,6 +3,12 @@ name: Build and push images
 on:
   push:
     branches: ["*"]
+    paths:
+    - src/**/.devcontainer/Dockerfile
+    - src/**/.devcontainer/devcontainer*.json
+    - src/**/.devcontainer/local-features/**
+    - scripts/dc-builder
+    - .github/workflows/docker-builds.yml
 
 jobs:
   build:
