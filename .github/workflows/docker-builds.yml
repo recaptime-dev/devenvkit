@@ -11,7 +11,7 @@ jobs:
       matrix:
         image:
           - src: debian
-            name: base
+            name: base/debian
     permissions:
       contents: read
       packages: write
