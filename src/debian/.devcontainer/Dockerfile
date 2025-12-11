@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:experimental
+# syntax=docker/dockerfile:labs
 ARG VARIANT=trixie
 FROM buildpack-deps:${VARIANT}-curl
 
