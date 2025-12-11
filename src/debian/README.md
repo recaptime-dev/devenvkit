@@ -22,6 +22,6 @@ Currently building against the latest Debian release with lead time of at least
 * Or in your Dockerfile:
 
 ```dockerfile
-# syntax=docker/dockerfile:experimental
+# syntax=docker/dockerfile:labs
 FROM ghcr.io/recaptime-dev/devenvkit/base/debian:latest
 ```
