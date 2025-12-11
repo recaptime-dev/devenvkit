@@ -31,7 +31,7 @@ jobs:
         remove-cloud-tools: 'true'
         show-top-packages: 'true'
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Install Dev Containers CLI
       run: npm i -g @devcontainers/cli
     - name: Set up QEMU
