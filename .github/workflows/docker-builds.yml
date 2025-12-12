@@ -9,11 +9,13 @@ on:
     - src/**/.devcontainer/local-features/**
     - scripts/dc-builder
     - .github/workflows/docker-builds.yml
+    - src/.trigger-rebuild
   pull_request:
     branches: ["main"]
 
 jobs:
-  build:
+  build-dc:
+    name: Build with Dev Containers CLI
     runs-on: ubuntu-latest
     strategy:
       matrix:
