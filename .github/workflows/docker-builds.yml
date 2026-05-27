@@ -27,7 +27,7 @@ jobs:
       packages: write
     steps:
     - name: Clean runner for Docker builds
-      uses: sctg-development/clean-image-for-docker@v1
+      uses: sctg-development/clean-image-for-docker@v2
       with:
         remove-development-tools: 'true'
         remove-browsers: 'true'
